@@ -1,0 +1,26 @@
+# Teams Adder
+
+> Add attendees to a teams meeting using a list of emails
+
+As a non-admin of my organisation, there didn't seem to be an easy way to add attendees to a teams meeting using a list of emails. Thus, this little script opens an automated browser using puppeteer, and adds these emails as required attendees to the meeting.
+
+## Usage
+
+`index.js` houses a sample of how to read a list of emails from an excel sheet (from column D). You will need to edit it to read emails from your data source, and finally pass an array of emails to the `addEmails` function.
+
+```sh
+# Install dependencies
+npm install
+
+# Edit index.js to retrieve array of emails from your data source
+# These emails should then be passed to the addEmail() function
+# Once done, you can call:
+node index.js
+
+# A browser window should open up. Log in to yoour account and
+# navigate to the meeting (Calendar -> Edit meeting).
+```
+
+## License
+
+MIT

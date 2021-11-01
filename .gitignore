@@ -1,0 +1,8 @@
+node_modules
+*.xlsx
+
+# This project uses pnpm
+package-lock.json
+
+# Puppeteer user data
+user_data
