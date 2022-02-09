@@ -21,6 +21,59 @@ node index.js
 # navigate to the meeting (Calendar -> Edit meeting).
 ```
 
+## Do you have access to the API?
+
+If you have API access, adding people to a meeting is way more easier:
+
+```sh
+# You'll need to add people to the meeting twice: once to the calendar event,
+# and then to the meeting itself.
+
+# Retrieve the online meeting id using the join url from teams
+GET https://graph.microsoft.com/v1.0/me/onlineMeetings?$filter=JoinWebUrl%20eq%20'MEETING_JOIN_URL'
+
+# Use a patch request to set the participant list
+PATCH https://graph.microsoft.com/v1.0/me/onlineMeetings/ONLINE_MEETING_ID
+
+{
+  "allowedPresenters": "roleIsPresenter",
+  "participants": {
+    "attendees": [
+      {
+        "upn": "participant1@example.com"
+      },
+      {
+        "upn": "participant2@example.com",
+        "role": "presenter"
+      }
+    ]
+  }
+}
+
+# Retrieve the calendar event id
+GET https://graph.microsoft.com/v1.0/me/events
+
+# Add the meeting to participant calendars
+PATCH https://graph.microsoft.com/v1.0/me/events/CALENDAR_EVENT_ID
+
+{
+  "attendees": [
+    {
+      "emailAddress": {
+        "address": "participant1@example.com",
+        "name": "Participant 1"
+      }
+    },
+    {
+      "emailAddress": {
+        "address": "participant2@example.com",
+        "name": "Participant 2"
+      }
+    }
+  ]
+}
+```
+
 ## License
 
 MIT
